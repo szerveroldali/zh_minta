@@ -1,0 +1,56 @@
+type Query {
+    products: [Product]!
+    orders: [Order]!
+    priceBetween(min: Int!, max: Int!): [Product]!
+    statistics: Statistics!
+}
+
+type Statistics {
+    registeredUsers: Int!
+    unshippedOrders: Int!
+    largeOrders: Int!
+    mostExpensivePrice: Int!
+    averagePrice: Float!
+}
+
+type Mutation {
+    createProduct(input: CreateProductInput!): Product
+    addProduct(ProductId: ID!, OrderId: ID!): String!
+}
+
+type Product {
+    id: ID!
+    name: String!
+    description: String
+    price: Int!
+    count: Int!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Order {
+    id: ID!
+    address: String!
+    UserId: ID!
+    shipped: Boolean!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    user: User!
+    products: [Product]!
+    totalPrice: Int!
+}
+
+type User {
+    id: ID!
+    email: String!
+    isWorker: Boolean!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+input CreateProductInput {
+    name: String!
+    description: String
+    price: Int!
+    count: Int!
+}
